@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Real Estate Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link rel="stylesheet" type="text/css" href="file:///Users/charanshampur/Desktop/hw-8/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
+   
+   <style type="text/css">
+
+   #fb {
+    background-color: #3366CC;
+    border-radius: 8px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 12px;
+    height: 40px;
+    width: 135px;
+}
+
+table {   border:none;
+                    border-collapse: collapse;
+                    white-space: nowrap;
+}
+    td {    width:400px;
+            height:30px;
+            font-family: sans-serif;
+            color:black;
+            
+
+    }
+  td.left{
+            text-align: left;
+}
+
+    td.right{
+            text-align: right;
+            padding-right: 25px;
+
+}
+    .has-error .form-control {
+    border: 2px solid red;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.075) inset;
+}
+.has-error .form-control:focus {
+    border-color: #843534;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px red;
+}
+
+    .has-success .form-control {
+    border: 2px solid green;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.075) inset;
+}
+.has-success .form-control:focus {
+    border-color: green;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px green;
+}
+h2{
+    margin: 0;     
+    color: #666;
+    padding-top: 90px;
+    font-size: 52px;
+    font-family: "trebuchet ms", sans-serif;    
+  }
+
+ /* start of small screen scaling */ 
+
+@media (max-width: 800px) {
+
+  /*
+
+#imgyear1{ width=100%;
+  height=100%;
+}
+
+#imgyear5{ width=100%;
+  height=100%;
+}
+
+#imgyear10{ width=100%;
+  height=100%;
+} */
+
+ .carousel-caption h4 {
+     font-size: 14px;
+     font-family: sans-serif;
+  }
+
+   .carousel-caption p {
+     font-size: 12px;
+     font-family: sans-serif;
+  }
+
+  .imgyear {
+    padding-top: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+  /*.item {
+  margin-bottom: 2%;
+}*/
+}
+
+/* end of small screen scaling */
+
+/* start of big screen scaling */
+
+@media (min-width: 800px) {
+
+/*
+#imgyear1{ width=100%;
+  height=70%;
+}
+
+#imgyear5{ width=100%;
+  height=70%;
+}
+
+#imgyear10{ width=100%;
+  height=70%;
+} */
+
+.item {
+  background: #A8A8A8;
+  margin-bottom: 1%;
+  /* height:370px; */
+}
+  .imgyear {
+    margin-left: 13%;
+    padding-top: 10px;
+    width: 75%;
+}
+
+}
+/* End of big screen scaling */
+
+.carousel-caption {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+    left: 0;
+    margin-bottom: -2%;
+    opacity: 0.4;
+    padding-bottom: 0;
+    padding-top: 0;
+    right: 0;
+    text-align: left;
+}
+
+.carousel-inner > .item > img {
+    margin: 0 auto;
+}
+
+.carousel-indicators {
+  margin-left:12%;
+}
+
+
+
+.carousel-indicators li {
+    
+    border: 1px solid #FF9933;
+    
+}
+.carousel-indicators .active {
+    background-color: #FF9933;
+}
+
+/*.item{
+    background: #A8A8A8;    
+    text-align: center;
+    height: 400px;
+    
+}
+
+.carousel{
+    margin-bottom: 20px;
+}
+
+.carousel-caption {
+   
+    padding-bottom: 0;
+  } */
+    
+/*.carousel-caption{
+   border: 3px solid black;
+    bottom: 0;
+    left: 0;
+    padding-bottom: 0;
+    right: 0;
+    text-align: left;
+    top: 72%;
+} */
+
+  /*p.propText{ border:1px solid black;
+        border-radius: 7px;
+        background-color: #FFFFCC;
+        font-family: sans-serif;
+        font-size: 16px;
+        width:1225px;
+        height: 30px;
+        padding-left: 10px;
+        padding-top: 12px;
+        margin-left:-3px; */
+   </style> 
+  </head>
+  <body>
+    <script type="text/javascript">
+        window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '568678363232145',
+            xfbml      : true,
+            version    : 'v2.2'
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function postFb()
+        {
+
+            var feedName = objG.street+","+objG.city+","+objG.state+"-"+objG.zipcode;
+            var feedLink = objG.homedetails;
+            var feedPicture = objG.year1;
+            var feedCaption ="Property Information from Zillow.com";
+            var chstr=String(objG["30 Days Overall Change"]);
+            var pos=chstr.indexOf(">$");
+            var chstrLength=chstr.length+1;
+            var changeAmt=chstr.substring(pos+1,chstrLength);
+            var feedDescription = "Last Sold Price: "+objG["Last Sold Price"]+" , "+"30 Days Overall Change: "+objG.zestChange+changeAmt;
+
+            FB.ui(
+            {
+                method: 'feed',
+                name: feedName,
+                link: feedLink,
+                picture: feedPicture,
+                caption: feedCaption,
+                description: feedDescription
+            },
+            function(response) 
+            {
+                if (response && response.post_id) {
+                    alert('Post was published.');
+                } else {
+                    alert('Post was not published.');
+                }
+            }
+            );
+
+        }   
+
+    </script>
+    <div class="container" style="background:url('http://www.neovisual.cz/files/V0779-d9.jpg');color:#FF9933;">
+      <h3>Search your property here</h3><br>
+      <form class="form-inline" role="form" id="myform">
+          <div class="row" style="color:#FF9933;">
+            <div id="divstreet" class="form-group col-lg-4">
+              <label for="street">Street Address <sup>*</sup>:</label>
+              <input type="text" class="form-control" placeholder="Address" id="street">
+              <span id="s1" class="col-md-offset-4" style='color:red;'> This is a required field </span>
+          </div>
+            <div id="divcity" class="form-group col-lg-3">
+              <label for="city">City <sup>*</sup>:</label>
+              <input type="text" class="form-control" placeholder="City" id="city">
+              <span id="s2" class="col-md-offset-3" style='color:red;'> This is a required field </span>
+            </div>
+            <div id="divstate" class="form-group col-lg-2">
+              <label for="state">State <sup>*</sup>:</label>
+              <select class="form-control input-sm" id="state">
+              <option></option>
+                      <option value="AL">AL</option>
+                      <option value="AK">AK</option>
+                      <option value="AZ">AZ</option>
+                      <option value="AR">AR</option>
+                      <option value="MT">MT</option>
+                      <option value="CA">CA</option>
+                      <option value="NE">NE</option>
+                      <option value="CO">CO</option>
+                      <option value="NV">NV</option>
+                      <option value="CT">CT</option>
+                      <option value="NH">NH</option>
+                      <option value="DE">DE</option>
+                      <option value="NJ">NJ</option>
+                      <option value="DC">DC</option>
+                      <option value="NM">NM</option>
+                      <option value="FL">FL</option>
+                      <option value="NY">NY</option>
+                      <option value="GA">GA</option>
+                      <option value="NC">NC</option>
+                      <option value="HI">HI</option>
+                      <option value="ND">ND</option>
+                      <option value="ID">ID</option>
+                      <option value="OH">OH</option>
+                      <option value="IL">IL</option>
+                      <option value="OK">OK</option>
+                      <option value="IN">IN</option>
+                      <option value="OR">OR</option>
+                      <option value="IA">IA</option>
+                      <option value="PA">PA</option>
+                      <option value="KS">KS</option>
+                      <option value="RI">RI</option>
+                      <option value="KY">KY</option>
+                      <option value="SC">SC</option>
+                      <option value="LA">LA</option>
+                      <option value="SD">SD</option>
+                      <option value="ME">ME</option>
+                      <option value="TN">TN</option>
+                      <option value="MD">MD</option>
+                      <option value="TX">TX</option>
+                      <option value="MA">MA</option>
+                      <option value="UT">UT</option>
+                      <option value="MI">MI</option>
+                      <option value="VT">VT</option>
+                      <option value="MN">MN</option>
+                      <option value="VA">VA</option>
+                      <option value="MS">MS</option>
+                      <option value="WA">WA</option>
+                      <option value="MO">MO</option>
+                      <option value="WV">WV</option>
+                      <option value="WI">WI</option>
+                      <option value="WY">WY</option>
+            </select>
+            <span id="s3" class="col-md-offset-2" style='color:red;'> This is a required field </span>
+            </div>
+            <div class="col-lg-3">
+            <button id="sub" type="button" class="btn btn-warning">Submit</button>
+            
+            <img class="col-md-offset-2 zillogo" src="http://www.zillow.com/widgets/GetVersionedResource.htm?path=/static/logos/Zillowlogo_150x40_rounded.gif" width="120" height="30" alt="Zillow Real Estate Search" />
+          
+            </div>
+            <!--
+            <div class="col-lg-2">
+              <img class="zillogo" src="http://www.zillow.com/widgets/GetVersionedResource.htm?path=/static/logos/Zillowlogo_150x40_rounded.gif" width="40" height="10" alt="Zillow Real Estate Search" />
+            </div>  -->
+        </div>
+        </form>
+        <br>
+        <div class="row">
+          <div class="col-lg-10">
+            <hr>
+          </div>
+        </div>
+        <div id="errormsg" class="row" style="color:red; font-size:20px ;font-family: sans-serif; text-align:center;"> No exact match found -- Verify that the given address is correct.
+        </div>
+        <div id="tabview" class="row"> <!-- code for tabs -->
+        <div class="tabbable col-md-offset-1 col-lg-10">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#basic" data-toggle="tab">Basic Info</a></li>
+          <!-- <li><a href="#map" data-toggle="tab">Map</a></li> -->
+          <li><a href="#hzest" data-toggle="tab">Historical Zestimates</a></li>
+        </ul>
+        <div class="tab-content">
+          <div id="basic" class="tab-pane active"> <!-- basic table display tab -->
+            <h4>tabular data</h4> 
+          </div> <!-- basic data end -->
+          <!--
+          <div id="map" class="tab-pane" >
+            <h4>Map data</h4>
+          </div> -->
+          <div id="hzest" class="tab-pane"> <!-- zest tab start -->
+            <div id="myCarousel" class="carousel slide" data-interval="3000" data-ride="carousel">
+      <!-- Carousel indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+              <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>   
+       <!-- Carousel items -->
+            <div class="carousel-inner">
+            <div class="active item"><div id="chart1"></div>
+                <div class="carousel-caption">
+                  <h4> &nbsp; Historical Zestimate for the past 1 Year </h4>
+                  <p class="chartadr"></p>
+                </div>
+            </div>
+            <div class="item"><div id="chart2"></div>
+                <div class="carousel-caption">
+                  
+                  <h4> &nbsp; Historical Zestimate for the past 5 Years</h4>
+                  <p class="chartadr"></p>
+                </div>
+            </div>
+            <div class="item"><div id="chart3"></div>
+                <div class="carousel-caption">
+                  
+                  <h4> &nbsp; Historical Zestimate for the past 10 Years</h4>
+                  <p class="chartadr"></p>
+                </div>
+            </div>
+        </div>
+        <!-- Carousel nav -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div> <!-- carousal end -->
+
+          </div> <!-- zest chart end -->
+        </div><!-- /.tab-content -->
+        </div><!-- /.tabbable -->
+        </div> <!--row closing -->
+    </div>
+     <!--<script type="text/javascript" src="file:///Users/charanshampur/Downloads/jquery-2.1.1.js"></script> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!--<script src="http://code.jquery.com/jquery.min.js"></script> -->
+     <!--<script src="file:///Users/charanshampur/Desktop/hw-8/js/bootstrap.min.js"></script> -->
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
+    <!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script> -->
+    <script> 
+    var subm=false;
+    var objG;
+    //$("#myCarousel").hide();
+    function formatCorousel(obj)
+    {
+
+      
+      var image1="<img id='imgyear1' class='img-responsive imgyear' src="+obj.year1+">";
+      var image2="<img id='imgyear5' class='img-responsive imgyear'  src="+obj.year5+">";
+      var image3="<img id='imgyear10' class='img-responsive imgyear'  src="+obj.year10+">";
+      $("#chart1").html(image1);
+      $("#chart2").html(image2);
+      $("#chart3").html(image3);
+      $(".chartadr").html("&nbsp; &nbsp; &nbsp;"+obj.street+","+obj.city+","+obj.state+"-"+obj.zipcode);
+      $("#myCarousel").show();
+      
+    }
+
+    function formatTable(obj)
+    {
+        $("#tabview").show();
+        var tabdata="<div class='table-responsive'><table class='table'><tbody><tr><td colspan='3' style='background-color:#F8F8F8;font-size:15px;vertical-align:middle;'> See more Details for <a style='color:#FF9933;display:inline;' href="+obj.homedetails+" target = '_blank'>"+obj.street+","+obj.city+","+obj.state+"-"+obj.zipcode+"</a> on Zillow</td><td style='background-color:#F8F8F8;' class='right'><button id='fb' onclick='postFb()'> Share on <b> facebook </b> </button></td></tr>";
+        var newrow=0;
+        //var tabdata="<table class='table'><tbody>";
+        $.each(obj, function(key, val) {
+              if(newrow%2==0)
+              {
+                tabdata+="<tr>";
+              }
+              if((newrow%4==0)||((newrow-1)%4==0))
+              {
+              tabdata+="<td class='left' style='background-color :white;'><b>"+((key!='')? key : 'N/A')+" :</td><td class='right' style='background-color :white;'>"+((val!='')? val : 'N/A')+"</td>";
+              }
+              else
+              {  
+              tabdata+="<td class='left' style='background-color:  #F8F8F8 ;'><b>"+((key!='')? key : 'N/A')+" :</td><td class='right' style='background-color:  #F8F8F8 ;'>"+((val!='')? val : 'N/A')+"</td>";
+              }
+              newrow++;
+              if(newrow%2==0)
+              {
+                tabdata+="</tr>";
+                if (newrow==16)
+                {
+                  return false;
+                }
+              }
+           /* iterate through array or object */
+        });
+        tabdata+="</tbody></table></div>";
+
+        tabdata+="<div class='row'><div class='col-lg-12' style='text-align:center;'><p style='color:white;'>&copy Zillow, Inc., 2006-2014. Use is subject to <a style='color:#FF9933;' target='_blank' href='http://www.zillow.com/corp/Terms.htm'> Terms of Use </a></p></div></div>";
+        tabdata+="<div class='row'><div class='col-lg-12' style='text-align:center;'><p style='font-family:sans-serif;'><a style='color:#FF9933;' target = '_blank' href='http://www.zillow.com/zestimate/'> What's a Zestimate </a></p></div></div>";
+
+
+        /*
+
+        tabdata+="<p style='margin-left:350px; color:white;'>&copy Zillow, Inc., 2006-2014. Use is subject to <a style='color:blue;' target='_blank' href='http://www.zillow.com/corp/Terms.htm'> Terms of Use </a></p>";
+        tabdata+="<p style='margin-left:450px;margin-top:-10px;font-family:sans-serif;'><a style='color:blue;' target = '_blank' href='http://www.zillow.com/zestimate/'> What's a Zestimate </a></p>"; 
+
+        */
+
+        $("#basic").html(tabdata); 
+
+    }
+    function getdata()
+    {
+        $.ajax({
+              url: "trynew1.php",
+              type: 'GET',
+              cache: false,
+             // contentType: "application/json",
+              //dataType:"text",
+              data: {"street" : $("#street").val(),
+                     "city" : $("#city").val(),
+                     "state" : $("#state").val()
+                    },
+              success: function(msg){
+
+                //alert("The message is:"+msg+":delimiter");                
+                if (String(msg).search("error")>0)
+                {
+                  //alert(msg);
+                  $("#errormsg").show();
+                  $("#tabview").hide();
+                }
+                else
+                {
+                  $("#errormsg").hide();
+                  var obj=$.parseJSON(msg);
+                  objG=obj;
+                  formatTable(obj);
+                  formatCorousel(obj);
+                }
+                /* alert(msg); 
+                $("#basic").html(msg); */
+                
+                
+                //alert(obj['Property Type']);
+
+                //$("#basic").html("<h3> street="+obj.street+" city="+obj.city+" state="+obj.state+"</h3>"); 
+              },
+              error: function(xhr,ajaxOptions,thrownError) {
+
+                //alert("ajaxOptions= "+ajaxOptions+"thrownError="+thrownError);
+                //alert("xhr.responseText="+xhr.responseText);
+                $("#basic").html("xhr.status =" + xhr.status + " xhr.statustext= " + xhr.statusText);
+              } 
+            });            
+    }
+    $(document).ready(function() {
+      
+
+      if (subm==false)
+      {
+       $("#s1").hide();
+       $("#s2").hide();
+       $("#s3").hide(); 
+       $("#myCarousel").hide();
+       $("#tabview").hide();
+       $("#errormsg").hide();
+      }
+      $("#sub").click(function() {
+          subm=true;
+          if ($("#street").val()=='') 
+          {
+            $("#s1").show();
+            $("#divstreet").removeClass('has-error');
+            $("#divstreet").addClass('has-error');
+          }
+          else
+          {
+            $("#divstreet").removeClass('has-success');
+            $("#divstreet").addClass('has-success');
+          }
+          if ($("#city").val()=='') 
+          {
+            $("#s2").show();
+            $("#divcity").removeClass('has-error');
+            $("#divcity").addClass('has-error');
+          }
+          else
+          {
+            $("#divcity").removeClass('has-success');
+            $("#divcity").addClass('has-success');
+          }
+          if ($("#state").val()=='')
+          {
+           $("#s3").show();
+           $("#divstate").removeClass('has-error');
+           $("#divstate").addClass('has-error');
+          }
+          else
+          {
+            $("#divstate").removeClass('has-success');
+            $("#divstate").addClass('has-success');
+          }
+          //alert($("#street").val());
+          //alert($("#city").val());
+          //alert($("#state").val());
+
+          if(($("#street").val()!='') && ($("#city").val()!='') && ($("#state").val()!=''))
+          {
+            //ajax call to the php
+            getdata();
+          }
+      });
+      $("#street").keyup(function() {
+        if (subm==true)
+        {
+          if($("#street").val()=='')
+          {
+            $("#s1").show();
+            $("#divstreet").removeClass('has-success');
+            $("#divstreet").addClass('has-error');
+
+          } 
+          else
+          {
+            $("#s1").hide();
+            $("#divstreet").removeClass('has-success');
+            $("#divstreet").addClass('has-success');
+            $("#divstreet").removeClass('has-error');
+          }
+        }
+        
+      });
+      $("#city").keyup(function() {
+        if (subm==true)
+        {
+          if($("#city").val()=='') 
+          {
+            $("#s2").show();
+            $("#divcity").removeClass('has-success');
+            $("#divcity").addClass('has-error');
+          }
+          else 
+          {
+            $("#s2").hide();
+            $("#divcity").removeClass('has-success');
+            $("#divcity").addClass('has-success');
+            $("#divcity").removeClass('has-error');
+          }
+        }
+        
+      });
+      $("#state").change(function() {
+        if (subm==true)
+        {
+          if($("#state").val()=='') 
+          {
+            $("#s3").show();
+            $("#divstate").addClass('has-error');
+            $("#divstate").removeClass('has-success');
+          }
+          else 
+          {
+            $("#s3").hide();
+            $("#divstate").removeClass('has-success');
+            $("#divstate").addClass('has-success');
+            $("#divstate").removeClass('has-error');
+             
+          }
+        }
+        
+      }); 
+    });
+
+    
+    </script>
+  </body> 
+</html> 
