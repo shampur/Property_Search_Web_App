@@ -8,7 +8,7 @@
   * [Setup](#setting-up-contiv-ui-on-mac-and-windows)
     * [Windows](#for-windows)
     * [Mac](#for-mac)
-  * [Adding-custom-icons](#Adding-custom-icons-into-semantic-ui)
+  * [Adding-custom-icons](#junk)
   * [Testing](#testing)
     * [Directives] (#writing-directive-tests)
 
@@ -112,8 +112,9 @@ $ nginx -s reload
 $ nginx -s stop
 ```
 
-### Adding custom icons into semantic ui
-----
+###Adding custom icons into semantic ui
+###junk
+----------------------------------------
 
 * Uncompress the folder containing the files related to the icons.
 * Copy and replace the following files cisco-ucp.eot, cisco-ucp.svg, cisco-ucp.tff, cisco-ucp.woff, cisco-ucp.woff2 from /font/ of the uncompressed folder into contiv-ui/app/bower_components/semantic-ui/src/themes/cisco/assets/fonts/.
