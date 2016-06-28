@@ -8,7 +8,7 @@
   * [Setup](#setting-up-contiv-ui-on-mac-and-windows)
     * [Windows](#for-windows)
     * [Mac](#for-mac)
-  * [Adding-custom-icons](#junk)
+  * [Adding-custom-icons](#Adding-custom-icons-into-semantic-ui)
   * [Testing](#testing)
     * [Directives] (#writing-directive-tests)
 
@@ -113,7 +113,6 @@ $ nginx -s stop
 ```
 
 ###Adding custom icons into semantic ui
-###junk
 ----------------------------------------
 
 * Uncompress the folder containing the files related to the icons.
