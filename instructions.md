@@ -8,7 +8,7 @@
   * [Setup](#setting-up-contiv-ui-on-mac-and-windows)
     * [Windows](#for-windows)
     * [Mac](#for-mac)
-  * [Adding-custom-icons](#semantic-ui)
+  * [Adding-custom-icons](#Adding custom icons into semantic ui)
   * [Testing](#testing)
     * [Directives] (#writing-directive-tests)
 
